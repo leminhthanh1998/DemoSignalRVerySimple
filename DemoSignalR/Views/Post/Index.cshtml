@@ -1,0 +1,32 @@
+﻿@model DemoSignalR.Models.PostModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Demo SignalR</h1>
+
+<form asp-action="Add" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="ID">ID</label>
+        <input asp-for="ID" class="form-control" />
+        <span asp-validation-for="ID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <textarea asp-for="Name" class="form-control"></textarea>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Number">Number</label>
+        <textarea asp-for="Number" class="form-control"></textarea>
+        <span asp-validation-for="Number" class="text-danger"></span>
+    </div>
+    <select class="form-control" asp-for="Method">
+        <option value="1">Post</option>
+        <option value="2">Edit</option>
+        <option value="3">Delete</option>
+    </select>
+    <button type="submit" class="btn btn-light">Submit</button>
+</form>
+

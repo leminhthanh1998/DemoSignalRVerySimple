@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Demo SignalR</h1>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Number</th>
+            </tr>
+        </thead>
+        <tbody  id="sectioncmt">
+           
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/posthub", { transport: signalR.HttpTransportType.WebSockets, skipNegotiation: true }).build();
+        connection.on("ReceiveNotify", function (data) {
+            if (data!="") {
+               $("#sectioncmt").append(data);
+            }
+        });
+        connection.on("EditNotify", function (id , data) {
+            if (data != "") {
+                rowID = "#r" + id;
+                $(rowID).replaceWith(data);
+            }
+        });
+        connection.on("DeleteNotify", function (id) {
+            if (id != "") {
+                rowID = "#r" + id;
+                $(rowID).remove();
+            }
+        });
+
+        connection.start();
+
+    </script>
+}
